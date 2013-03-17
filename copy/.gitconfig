@@ -1,10 +1,11 @@
 [user]
-  name = Ben Alman
-  email = EMAIL
+  name = "Martijn van Exel"
+  email = "m@rtijn.org"
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
   excludesfile = ~/.gitignore_global
+  editor = "vim"
 [apply]
   whitespace = fix
 [alias]
