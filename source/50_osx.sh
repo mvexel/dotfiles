@@ -66,3 +66,6 @@ function txt_sub_restore() {
   )
   for cmd in "${cmds[@]}"; do /usr/libexec/PlistBuddy -c "$cmd" "$prefs"; done
 }
+
+# byobu prefix
+export BYOBU_PREFIX=$(brew --prefix)
