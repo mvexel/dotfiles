@@ -19,7 +19,7 @@ It's really not very complicated. When [dotfiles][dotfiles] is run, it does a fe
 
 1. Git is installed if necessary, via APT or Homebrew (which is installed if necessary).
 2. This repo is cloned into the `~/.dotfiles` directory (or updated if it already exists).
-2. Files in `init` are executed (in alphanumeric order).
+2. Files in `init` are executed (in alphanumeric order, hence the "50_" names).
 3. Files in `copy` are copied into `~/`.
 4. Files in `link` are linked into `~/`.
 
@@ -39,7 +39,7 @@ Notes:
 * You need to have installed [XCode Command Line Tools](https://developer.apple.com/downloads/index.action?=command%20line%20tools), which are available as a separate, optional (and _much smaller_) download from XCode.
 
 ```sh
-bash -c "$(curl -fsSL https://raw.github.com/mvexel/dotfiles/master/bin/dotfiles)" && source ~/.bashrc
+bash -c "$(curl -fsSL https://bit.ly/cowboy-dotfiles)" && source ~/.bashrc
 ```
 
 ### Ubuntu

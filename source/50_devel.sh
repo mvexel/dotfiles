@@ -11,7 +11,7 @@ if [[ "$(type -P nave)" ]]; then
   fi
 fi
 
-npm_globals=(grunt linken jshint uglify-js codestream)
+npm_globals=(grunt-cli grunt-init linken bower node-inspector yo)
 
 # Fetch and build the latest stable Node.js, assigning it the alias "default"
 alias nave_stable='nave use default stable nave_stable_2 $(node --version 2>/dev/null); src'
@@ -75,15 +75,20 @@ function __npm_owner_add_each() {
 # updated. While the "npm outdated" command only lists versions that are valid
 # per the version string in package.json, this looks at the @latest tag in npm.
 function npm_latest() {
+  if [[ -e 'node_modules' ]]; then
+    echo 'Backing up node_modules directory.'
+    mv "node_modules" "node_modules-$(date "+%Y_%m_%d-%H_%M_%S")"
+  fi
   local deps='JSON.parse(require("fs").readFileSync("package.json")).dependencies'
   # Install the latest version of all dependencies listed in package.json.
   echo 'Installing @latest version of all dependencies...'
   npm install $(node -pe "Object.keys($deps).map(function(m){return m+'@latest'}).join(' ')");
   # List all dependencies that are now invalid, along with their (new) version.
-  if npm ls | grep invalid >/dev/null; then
+  local npm_ls="$(npm ls 2>/dev/null)"
+  if echo "$npm_ls" | grep invalid >/dev/null; then
     echo -e '\nTHESE DEPENDENCIES CAN POSSIBLY BE UPDATED\n'
     echo 'Module name:                   @latest:             package.json:'
-    npm ls | perl -ne "m/.{10}(.+)@(.+?) invalid\$/ && printf \"%-30s %-20s %s\", \$1, \$2, \`node -pe '$deps[\"\$1\"]'\`"
+    echo "$npm_ls" | perl -ne "m/.{10}(.+)@(.+?) invalid\$/ && printf \"%-30s %-20s %s\", \$1, \$2, \`node -pe '$deps[\"\$1\"]'\`"
     return 99
   else
     echo -e '\nAll dependencies are @latest version.'
