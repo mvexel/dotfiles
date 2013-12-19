@@ -1,4 +1,4 @@
-PATH=/usr/local/share/python:${PATH}
+#PATH=/usr/local/share/python:${PATH}
 
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=`which python`
